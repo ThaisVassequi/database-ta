@@ -41,7 +41,8 @@ jobs:
         run: |
           echo user db ${{ secrets.USER_PG }} 
           echo pass db ${{ secrets.PGPASSWORD }} 
-      - name: Run a multi-line script with local variables
+      - name: Run a ssh command on remote EC2
         run: |
-          echo db name ${{ env.DATABASE_NAME }} 
-          echo bla db ${{ env.BLA }}   
+          ls
+          chmod 400 site_chave.pem
+          ssh -i "site_chave.pem" ubuntu@ec2-18-156-78-72.eu-central-1.compute.amazonaws.com -t "sudo cd /var/www/html/ta; sudo echo Olá > /var/www/html/ta/index.html "
